@@ -1,0 +1,75 @@
+services:
+  zookeeper-node:
+    image: zookeeper
+    container_name: zookeeper-node
+  clickhouse-node1:
+    image: 'yandex/clickhouse-server:20.3.9.70'
+    container_name: clickhouse-node1
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./nodes-config.xml
+        target: /etc/clickhouse-server/config.d/cluster1.xml
+    depends_on:
+      - zookeeper-node
+  clickhouse-node2:
+    image: 'yandex/clickhouse-server:20.3.9.70'
+    container_name: clickhouse-node2
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./nodes-config.xml
+        target: /etc/clickhouse-server/config.d/cluster1.xml
+    depends_on:
+      - zookeeper-node
+  clickhouse-node1b:
+    image: yandex/clickhouse-server
+    container_name: clickhouse-node1b
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./nodes-config.xml
+        target: /etc/clickhouse-server/config.d/cluster1.xml
+    depends_on:
+      - zookeeper-node
+  clickhouse-node2b:
+    image: yandex/clickhouse-server
+    container_name: clickhouse-node2b
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./nodes-config.xml
+        target: /etc/clickhouse-server/config.d/cluster1.xml
+    depends_on:
+      - zookeeper-node
+  clickhouse-query:
+    image: 'yandex/clickhouse-server:20.3.9.70'
+    container_name: clickhouse-query
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./nodes-config.xml
+        target: /etc/clickhouse-server/config.d/cluster1.xml
+    depends_on:
+      - zookeeper-node
+
