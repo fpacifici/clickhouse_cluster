@@ -2,7 +2,7 @@
     <remote_servers>
         <cluster1-replicas>
             <shard>
-                <internal_replication>true</internal_replication>
+                <internal_replication>false</internal_replication>
                 <replica>
                     <host>clickhouse-node1</host>
                     <port>9000</port>
@@ -15,7 +15,7 @@
         </cluster1-replicas>
     </remote_servers>
     <logger>
-        <level>trace</level>
+        <level>information</level>
         <console>1</console>
     </logger>
     <zookeeper>
@@ -28,6 +28,6 @@
     </zookeeper>
     <macros>
         <shard>1</shard>
-        <replica>1</replica>
+        <replica>2</replica>
     </macros>
 </yandex>
